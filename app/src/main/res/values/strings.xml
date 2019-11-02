@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">PlanningPoker</string>
+    <string name="task">Task</string>
+    <string name="score">Score</string>
+    <string name="submit">Submit</string>
+    <string name="vote">Vote</string>
+    <string-array name="spinner_items">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>8</item>
+        <item>13</item>
+        <item>21</item>
+        <item>34</item>
+        <item>55</item>
+        <item>89</item>
+    </string-array>
 </resources>
