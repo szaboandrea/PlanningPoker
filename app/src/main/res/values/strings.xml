@@ -17,4 +17,10 @@
         <item>55</item>
         <item>89</item>
     </string-array>
+    <string name="login">Log in</string>
+    <string name="first_name">First name</string>
+    <string name="lastname">Last name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
