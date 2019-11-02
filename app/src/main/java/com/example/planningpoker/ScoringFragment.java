@@ -22,7 +22,7 @@ import android.widget.Button;
  * create an instance of this fragment.
  */
 public class ScoringFragment extends Fragment {
-    private static final String TAG = "ScoringFragment";
+    private static final String TAG = "PlanningPokerScore";
     private OnScoringFragmentInteractionListener mListener;
 
     private RecyclerView mRecyclerViewScoreList;
@@ -73,7 +73,7 @@ public class ScoringFragment extends Fragment {
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.replaceFragment(0);
         }
     }
 
@@ -95,7 +95,6 @@ public class ScoringFragment extends Fragment {
     }
 
     public interface OnScoringFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void replaceFragment(int fragment);
     }
 }
