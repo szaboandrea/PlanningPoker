@@ -2,21 +2,15 @@ package com.example.planningpoker;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity implements
-        ScoringFragment.OnScoringFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "PlanningPokerMain";
 
-    private ScoringFragment mScoringFragment;
-    private Button btnLogin;
-    Fragment fragment;
+    public static FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -24,40 +18,21 @@ public class MainActivity extends AppCompatActivity implements
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnLogin = findViewById(R.id.btnLogin);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragment = new ScoringFragment();
-                FragmentManager mFragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_place,fragment).commit();
 
-                /*mScoringFragment = ScoringFragment.newInstance();
+        fragmentManager = getSupportFragmentManager();
 
-                if (findViewById(R.id.fragmentContainer) != null) {
-                    if (savedInstanceState != null) {
-                        mScoringFragment = (ScoringFragment)
-                                getSupportFragmentManager().findFragmentByTag("scoring_fragment");
-                        Log.d(TAG, "Fragment loaded.");
-                    }
-                    else{
-                        getSupportFragmentManager().beginTransaction()
-                                .add(R.id.fragmentContainer, mScoringFragment, "scoring_fragment").commit();
-                        Log.d(TAG, "Fragment added.");
-                    }
-                }
-                else{
-                    Log.d(TAG, "Fragment container not found.");
-                }*/
+        if (findViewById(R.id.fragment_place)!=null){
+
+            if (savedInstanceState != null){
+                return;
             }
-        });
 
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            LoginFragment loginFragment = new LoginFragment();
+            fragmentTransaction.add(R.id.fragment_place, loginFragment, null);
+            fragmentTransaction.commit();
+        }
     }
 
-
-
-    public void replaceFragment(int fragment){
-    }
 }
