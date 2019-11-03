@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,60 +15,45 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="51dp"
         android:layout_marginEnd="30dp"
+        android:textStyle="bold|italic"
         android:text="@string/login"
         android:textColor="#0F7569"
         android:textCursorDrawable="@color/colorAccent"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        android:textSize="36sp" />
 
     <EditText
         android:id="@+id/et_firstname"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="30dp"
         android:ems="10"
         android:hint="@string/lastname"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_lastname"
-        tools:ignore="MissingConstraints" />
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/et_lastname"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="210dp"
         android:layout_marginEnd="30dp"
-        android:autoText="false"
         android:ems="10"
         android:hint="@string/first_name"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_login"
-        tools:ignore="MissingConstraints" />
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/btnLogin"
+        android:textStyle="bold|italic"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginStart="130dp"
-        android:layout_marginTop="169dp"
+        android:layout_marginTop="380dp"
         android:layout_marginEnd="130dp"
         android:layout_marginBottom="100dp"
         android:background="#0F7569"
         android:text="@string/login"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_firstname" />
+        android:textColor="#FFFFFF" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
