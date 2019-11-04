@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:text="@string/average_score"/>
+            android:text="@string/score"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

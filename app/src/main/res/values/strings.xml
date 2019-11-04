@@ -4,8 +4,6 @@
     <string name="score">Score</string>
     <string name="submit">Submit</string>
     <string name="vote">Vote</string>
-    <string name="back">Back</string>
-    <string name="average_score">Average Score</string>
     <string-array name="spinner_items">
         <item>0</item>
         <item>1</item>
@@ -19,7 +17,4 @@
         <item>55</item>
         <item>89</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

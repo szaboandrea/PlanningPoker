@@ -5,19 +5,12 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 /**
@@ -29,12 +22,10 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class ScoringFragment extends Fragment {
-    private static final String TAG = "PlanningPoker_Score";
+    private static final String TAG = "PlanningPokerScore";
     private OnScoringFragmentInteractionListener mListener;
 
     private RecyclerView mRecyclerViewScoreList;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private Button mButtonSubmit;
 
     public ScoringFragment() {
@@ -56,7 +47,6 @@ public class ScoringFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "Creating ScoringFragment");
         super.onCreate(savedInstanceState);
     }
 
@@ -71,18 +61,10 @@ public class ScoringFragment extends Fragment {
         mRecyclerViewScoreList = view.findViewById(R.id.recyclerViewScoreList);
         mButtonSubmit = view.findViewById(R.id.buttonSubmit);
 
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        //Values only for testing
-        String[] strings = new String[] {"a", "b", "c"};
-
-        mAdapter = new ScoreListAdapter(Arrays.asList(strings));
-        mRecyclerViewScoreList.setLayoutManager(mLayoutManager);
-        mRecyclerViewScoreList.setAdapter(mAdapter);
-
         mButtonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "Submit button click");
+
             }
         });
 
