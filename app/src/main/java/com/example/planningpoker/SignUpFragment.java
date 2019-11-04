@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,8 +20,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignUpFragment extends Fragment {
 
-    private EditText mEmail, mPassword;
+    private EditText mEmail, mPassword, mFullName;
     private Button btnSignUp;
+    private TextView mBack;
     FirebaseAuth mFireBaseAuth;
 
     public SignUpFragment(){
@@ -36,23 +38,36 @@ public class SignUpFragment extends Fragment {
         mFireBaseAuth = FirebaseAuth.getInstance();
         mEmail = view.findViewById(R.id.et_email);
         mPassword = view.findViewById(R.id.et_password);
+        mFullName = view.findViewById(R.id.et_fullname);
+        mBack = view.findViewById(R.id.tv_back_to_login);
 
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new LoginFragment(),null).commit();
+            }
+        });
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
+                String fullname = mFullName.getText().toString();
                 FirebaseUser currentUser = mFireBaseAuth.getCurrentUser();
 
-                checkIfFieldIsEmpty(email, password);
+                checkIfFieldIsEmpty(email, password,fullname);
             }
         });
         return view;
     }
 
-    public void checkIfFieldIsEmpty(String email, String password){
-        if (email.isEmpty()){
+    public void checkIfFieldIsEmpty(String email, String password, String fullname){
+        if (fullname.isEmpty()){
+            mFullName.setError("Please enter the full name");
+            mFullName.requestFocus();
+        }
+        else if (email.isEmpty()){
             mEmail.setError("Please enter the email address");
             mEmail.requestFocus();
         }
@@ -65,8 +80,9 @@ public class SignUpFragment extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(!task.isSuccessful()){
-                        Toast.makeText(getActivity(), "Sign in Unsuccessful. Please try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Sign in Unsuccessful. Please try again", Toast.LENGTH_LONG).show();
                     }else{
+                        Toast.makeText(getActivity(), "Login in success", Toast.LENGTH_LONG).show();
                         MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ScoringFragment(),null).commit();
                     }
                 }
