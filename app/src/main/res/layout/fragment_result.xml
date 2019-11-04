@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScoringFragment"
+    tools:context=".ResultFragment"
     android:orientation="vertical">
 
     <LinearLayout
@@ -24,22 +24,22 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:text="@string/average_score"/>
+            android:text="@string/score"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewScoreList"
+        android:id="@+id/recyclerViewResultList"
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
         android:layout_weight="1" />
 
     <Button
-        android:id="@+id/buttonSubmit"
+        android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_gravity="right"
-        android:text="@string/submit"/>
+        android:text="@string/back"/>
 
-</LinearLayout>
+</FrameLayout>

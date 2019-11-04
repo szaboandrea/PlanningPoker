@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class MainActivity extends AppCompatActivity implements
         ScoringFragment.OnScoringFragmentInteractionListener {
-    private static final String TAG = "PlanningPokerMain";
+    private static final String TAG = "PlanningPoker_Main";
 
     private ScoringFragment mScoringFragment;
 
