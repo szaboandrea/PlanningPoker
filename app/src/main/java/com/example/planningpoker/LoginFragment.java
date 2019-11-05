@@ -22,7 +22,7 @@ public class LoginFragment extends Fragment {
 
     private EditText mEmail, mPassword;
     private Button btnLogin;
-    private TextView mRegister, mAddNewTask;
+    private TextView mRegister;
 
     FirebaseAuth mFireBaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -41,7 +41,6 @@ public class LoginFragment extends Fragment {
         mEmail = view.findViewById(R.id.et_email_login);
         mPassword = view.findViewById(R.id.et_password_login);
         mRegister = view.findViewById(R.id.tv_register);
-        mAddNewTask = view.findViewById(R.id.tv_addnewtask);
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -71,13 +70,6 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new SignUpFragment(),null).commit();
-            }
-        });
-
-        mAddNewTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new AddNewTasksFragment(),null).commit();
             }
         });
 
