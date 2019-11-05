@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpFragment extends Fragment {
 
@@ -24,7 +25,6 @@ public class SignUpFragment extends Fragment {
     private Button btnSignUp;
     private TextView mBack;
     FirebaseAuth mFireBaseAuth;
-
     public SignUpFragment(){
 
     }
@@ -40,6 +40,7 @@ public class SignUpFragment extends Fragment {
         mPassword = view.findViewById(R.id.et_password);
         mFullName = view.findViewById(R.id.et_fullname);
         mBack = view.findViewById(R.id.tv_back_to_login);
+
 
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +63,7 @@ public class SignUpFragment extends Fragment {
         return view;
     }
 
-    public void checkIfFieldIsEmpty(String email, String password, String fullname){
+    public void checkIfFieldIsEmpty(final String email, final String password, final String fullname){
         if (fullname.isEmpty()){
             mFullName.setError("Please enter the full name");
             mFullName.requestFocus();
@@ -82,8 +83,24 @@ public class SignUpFragment extends Fragment {
                     if(!task.isSuccessful()){
                         Toast.makeText(getActivity(), "Sign in Unsuccessful. Please try again", Toast.LENGTH_LONG).show();
                     }else{
-                        Toast.makeText(getActivity(), "Login in success", Toast.LENGTH_LONG).show();
-                        MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ScoringFragment(),null).commit();
+                        User user = new User(
+                                fullname,
+                                email
+                        );
+                        FirebaseDatabase.getInstance().getReference("Users")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (!task.isSuccessful()){
+                                    Toast.makeText(getActivity(),"Insert to database unsuccessful", Toast.LENGTH_LONG).show();
+                                }
+                                else{
+                                    Toast.makeText(getActivity(), "Login in success", Toast.LENGTH_LONG).show();
+                                    MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ScoringFragment(),null).commit();
+                                }
+                            }
+                        });
                     }
                 }
             });
