@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            //UNDO
-            //LoginFragment loginFragment = new LoginFragment();
-            //fragmentTransaction.add(R.id.fragment_place, loginFragment, null);
+            LoginFragment loginFragment = new LoginFragment();
+            fragmentTransaction.add(R.id.fragment_place, loginFragment, null);
 
-            ScoringFragment scoringFragment = new ScoringFragment();
-            fragmentTransaction.add(R.id.fragment_place, scoringFragment, null);
+            //Undo
+            //ScoringFragment scoringFragment = new ScoringFragment();
+            //fragmentTransaction.add(R.id.fragment_place, scoringFragment, null);
             fragmentTransaction.commit();
         }
     }
