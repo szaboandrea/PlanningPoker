@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScoringFragment"
+    tools:context=".ResultFragment"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,13 +15,9 @@
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:textAlignment="center"
-            android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:text="@string/task"
             android:textAlignment="center"
-            android:textColor="#0F7569"
-            android:textStyle="bold|italic" />
+            android:text="@string/task"/>
 
         <TextView
             android:layout_height="wrap_content"
@@ -32,26 +28,18 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewScoreList"
+        android:id="@+id/recyclerViewResultList"
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
         android:layout_weight="1" />
 
     <Button
-        android:id="@+id/buttonSubmit"
+        android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_gravity="right"
-        android:text="@string/submit"/>
+        android:text="@string/back"/>
 
-    <TextView
-        android:id="@+id/textViewAddTask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_gravity="center"
-        android:text="@string/add_task"/>
-
-</LinearLayout>
+</FrameLayout>

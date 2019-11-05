@@ -23,9 +23,12 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="signup">Sign Up</string>
+
+    <string name="back">Back</string>
+    <string name="register">Please click here if you does not register yet</string>
+    <string name="add_task">Please click here to add a new task</string>
     <string name="register">Register here</string>
     <string name="fullname">Full name</string>
-    <string name="back">Back</string>
     <string name="addnewtask">Add new task</string>
     <string name="add">Add</string>
 
