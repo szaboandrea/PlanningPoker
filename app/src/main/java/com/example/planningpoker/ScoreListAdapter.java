@@ -4,17 +4,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ScoreListAdapter extends RecyclerView.Adapter<ScoreListAdapter.ScoreViewHolder> {
-    public static final String TAG = "PlanningPoker_ScoreAdap";
+    public static final String TAG = "PlanningPokerScoreAdap";
     List<String> tasks;
+    List<String> spinnerValues;
 
     public static class ScoreViewHolder extends RecyclerView.ViewHolder{
         public TextView textView;
@@ -29,6 +34,16 @@ public class ScoreListAdapter extends RecyclerView.Adapter<ScoreListAdapter.Scor
 
     public ScoreListAdapter(List<String> tasks){
         this.tasks = tasks;
+        this.spinnerValues = new ArrayList<>();
+    }
+
+    public Map<String, String> getListData(){
+        Map<String, String> data = new HashMap<>();
+        int listSize = getItemCount();
+        for (int i=0; i<listSize; ++i){
+            data.put(tasks.get(i), spinnerValues.get(i));
+        }
+        return data;
     }
 
     @NonNull
@@ -41,9 +56,20 @@ public class ScoreListAdapter extends RecyclerView.Adapter<ScoreListAdapter.Scor
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ScoreViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ScoreViewHolder holder, final int position) {
         Log.d(TAG, "Binding view holder");
         holder.textView.setText(tasks.get(position));
+        holder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinnerValues.add(position, holder.spinner.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @Override

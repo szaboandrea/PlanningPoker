@@ -17,4 +17,16 @@
         <item>55</item>
         <item>89</item>
     </string-array>
+    <string name="login">Log in</string>
+    <string name="first_name">First name</string>
+    <string name="lastname">Last name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="signup">Sign Up</string>
+    <string name="back">Back</string>
+    <string name="register">Please click here if you does not register yet</string>
+    <string name="add_task">Please click here to add a new task</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,58 +1,44 @@
 package com.example.planningpoker;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ScoringFragment.OnScoringFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ScoringFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ScoringFragment extends Fragment {
     private static final String TAG = "PlanningPokerScore";
     private OnScoringFragmentInteractionListener mListener;
 
-    private RecyclerView mRecyclerViewScoreList;
     private Button mButtonSubmit;
+    private TextView mTextViewAddTask;
+
+    private RecyclerView mRecyclerViewScoreList;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     public ScoringFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ScoringFragment newInstance() {
-        ScoringFragment fragment = new ScoringFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "Creating view");
+
         View view = getView();
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_scoring, container, false);
@@ -60,10 +46,32 @@ public class ScoringFragment extends Fragment {
 
         mRecyclerViewScoreList = view.findViewById(R.id.recyclerViewScoreList);
         mButtonSubmit = view.findViewById(R.id.buttonSubmit);
+        mTextViewAddTask = view.findViewById(R.id.textViewAddTask);
+
+        //Only for testing
+        layoutManager = new LinearLayoutManager(getContext());
+
+        List<String> tasks = Arrays.asList("Login", "Database", "UI", "Account Management",
+                "Data Visualisation", "App Settings", "App themes", "Locales", "Other task",
+                "Another task");
+
+        adapter = new ScoreListAdapter(tasks);
+        mRecyclerViewScoreList.setLayoutManager(layoutManager);
+        mRecyclerViewScoreList.setAdapter(adapter);
 
         mButtonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Submit button click");
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ResultFragment(),null).commit();
+                Log.d(TAG, ((ScoreListAdapter) mRecyclerViewScoreList.getAdapter()).getListData().toString());
+            }
+        });
+
+        mTextViewAddTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Add task text view click");
 
             }
         });
@@ -75,23 +83,6 @@ public class ScoringFragment extends Fragment {
         if (mListener != null) {
             mListener.replaceFragment(0);
         }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnScoringFragmentInteractionListener) {
-            mListener = (OnScoringFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     public interface OnScoringFragmentInteractionListener {
