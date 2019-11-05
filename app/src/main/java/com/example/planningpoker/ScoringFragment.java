@@ -9,14 +9,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 
 public class ScoringFragment extends Fragment {
@@ -64,7 +63,9 @@ public class ScoringFragment extends Fragment {
             public void onClick(View v) {
                 Log.d(TAG, "Submit button click");
                 MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ResultFragment(),null).commit();
-                Log.d(TAG, ((ScoreListAdapter) mRecyclerViewScoreList.getAdapter()).getListData().toString());
+                Map<String, String> datas = ((ScoreListAdapter) mRecyclerViewScoreList.getAdapter()).getListData();
+                Database db = new Database();
+                db.addScores(datas);
             }
         });
 
@@ -72,7 +73,7 @@ public class ScoringFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Add task text view click");
-
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new AddNewTasksFragment(),null).commit();
             }
         });
 
