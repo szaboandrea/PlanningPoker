@@ -62,7 +62,7 @@ public class LoginFragment extends Fragment {
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
                 Database db = new Database();
-                db.getTasks();
+                db.avarage();
                 login(email,password);
             }
         });

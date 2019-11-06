@@ -22,11 +22,8 @@ public class Database {
     DatabaseReference myRef;
     FirebaseDatabase mDatabase;
     public List<String> listTask = new ArrayList<String>();
-    public interface OnGetDataListener {
-        public void onStart();
-        public void onSuccess(DataSnapshot data);
-        public void onFailed(DatabaseError databaseError);
-    }
+    public List<String> nameList = new ArrayList<String>();
+    public Map<String, Integer> avarageList;
 
     public void addTask(String task_name){
         Task task = new Task(task_name);
@@ -77,11 +74,4 @@ public class Database {
         return listTask;
     }
 
-    public List<String> showData(DataSnapshot dataSnapshot){
-        for (DataSnapshot ds : dataSnapshot.getChildren()){
-            listTask.add(ds.getKey());
-        }
-        Log.d(TAG, listTask.toString());
-        return listTask;
-    }
 }
