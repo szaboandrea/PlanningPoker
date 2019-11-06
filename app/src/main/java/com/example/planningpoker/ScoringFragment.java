@@ -60,11 +60,6 @@ public class ScoringFragment extends Fragment {
             }
 
             @Override
-            public Map<String, Double> onSuccess2(List<String> dataList) {
-                return null;
-            }
-
-            @Override
             public void onSuccess(Map<String, Double> dataMap) {
             }
         };

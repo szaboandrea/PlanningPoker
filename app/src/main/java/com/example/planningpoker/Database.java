@@ -25,61 +25,19 @@ public class Database {
     public List<String> listTask = new ArrayList<String>();
     public List<String> nameList = new ArrayList<String>();
     public Map<String, Double> averageMap = new HashMap<>();
-    public OnGetDataListener onGetDataListener = new OnGetDataListener() {
-        @Override
-        public void onSuccess(final List<String> dataList) {
-            for (String names : dataList){
-                myRef=mDatabase.getReference().child("Scores").child(names);
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot ds : dataSnapshot.getChildren()){
-                            Log.d(TAG, ds.getKey());
-                            String key = ds.getKey();
-                            Double value = Double.parseDouble(ds.getValue().toString());
-                            if (!averageMap.containsKey(key)){
-                                averageMap.put(key,value);
-                            }
-                            else {
-                                averageMap.put(key, averageMap.get(key)+value);
-                            }
-                            final DatabaseReference newRef = mDatabase.getReference();
-                            newRef.child("Count").setValue(dataList.size());
-                            newRef.child(key).setValue(averageMap.get(key));
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-            }
-
-        }
-
-        @Override
-        public Map<String, Double> onSuccess2(List<String> dataList) {
-            return null;
-        }
-
-        @Override
-        public void onSuccess(Map<String, Double> dataMap) {
-
-        }
-    };
+    public OnGetDataListener onGetDataListener;
 
     public void addTask(String task_name){
         Task task = new Task(task_name);
         FirebaseDatabase.getInstance().getReference("Tasks")
                 .child(task_name)
                 .setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
-                    if (!task.isSuccessful()){
-                        Log.d(TAG, "Doesn't add task");
-                    }
+            @Override
+            public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
+                if (!task.isSuccessful()){
+                    Log.d(TAG, "Doesn't add task");
                 }
+            }
         });
     }
 
@@ -121,17 +79,28 @@ public class Database {
 
 
 
-    public List<String> getUserId(final OnGetDataListener onGetDataListener){
+    public List<String> getResult(final OnGetDataListener onGetDataListener){
         mDatabase = FirebaseDatabase.getInstance();
-        myRef = mDatabase.getReference().child("Users");
+        myRef = mDatabase.getReference().child("Scores");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    nameList.add(ds.getKey());
+                Double size = (double) dataSnapshot.getChildrenCount();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Log.d(TAG, size.toString());
+
+                    for (DataSnapshot task : ds.getChildren()) {
+                        String key = task.getKey();
+                        Double value = Double.parseDouble(task.getValue().toString())/size;
+                        if (!averageMap.containsKey(key)) {
+                            averageMap.put(key, value);
+                        } else {
+                            averageMap.put(key, averageMap.get(key) + value);
+                        }
+                    }
                 }
-                Log.d(TAG, nameList.toString());
-                onGetDataListener.onSuccess(nameList);
+
+                onGetDataListener.onSuccess(averageMap);
             }
 
             @Override
@@ -141,5 +110,7 @@ public class Database {
         });
         return nameList;
     }
+
+
 
 }
