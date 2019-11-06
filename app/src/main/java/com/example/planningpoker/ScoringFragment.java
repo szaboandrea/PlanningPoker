@@ -62,8 +62,6 @@ public class ScoringFragment extends Fragment {
             @Override
             public void onSuccess(Map<String, Double> dataMap) {
             }
-
-
         };
 
         database.getTasks(onGetDataListener);

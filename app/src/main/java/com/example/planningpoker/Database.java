@@ -32,12 +32,12 @@ public class Database {
         FirebaseDatabase.getInstance().getReference("Tasks")
                 .child(task_name)
                 .setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
-                    if (!task.isSuccessful()){
-                        Log.d(TAG, "Doesn't add task");
-                    }
+            @Override
+            public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
+                if (!task.isSuccessful()){
+                    Log.d(TAG, "Doesn't add task");
                 }
+            }
         });
     }
 
