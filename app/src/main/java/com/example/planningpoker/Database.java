@@ -52,7 +52,7 @@ public class Database {
         });
     }
 
-    public List<String> getTasks(){
+    public List<String> getTasks(final OnGetDataListener onGetDataListener){
         mDatabase = FirebaseDatabase.getInstance();
         myRef = mDatabase.getReference();
         myRef.addValueEventListener(new ValueEventListener() {
@@ -62,6 +62,7 @@ public class Database {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     listTask.add(ds.getKey());
                 }
+                onGetDataListener.onSuccess(listTask);
                 Log.d(TAG, listTask.toString());
             }
 
@@ -73,5 +74,4 @@ public class Database {
         Log.d(TAG,"Atad:" + listTask.toString());
         return listTask;
     }
-
 }
