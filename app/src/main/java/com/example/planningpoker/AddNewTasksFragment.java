@@ -39,7 +39,7 @@ public class AddNewTasksFragment extends Fragment {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new LoginFragment(),null).commit();
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ScoringFragment(),null).commit();
             }
         });
         return view;
