@@ -29,6 +29,9 @@ public class ScoringFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    private Database database;
+    private OnGetDataListener onGetDataListener;
+
     public ScoringFragment() {
         // Required empty public constructor
     }
@@ -47,16 +50,18 @@ public class ScoringFragment extends Fragment {
         mButtonSubmit = view.findViewById(R.id.buttonSubmit);
         mTextViewAddTask = view.findViewById(R.id.textViewAddTask);
 
-        //Only for testing
-        layoutManager = new LinearLayoutManager(getContext());
+        database = new Database();
+        onGetDataListener = new OnGetDataListener() {
+            @Override
+            public void onSuccess(List<String> dataList) {
+                layoutManager = new LinearLayoutManager(getContext());
+                adapter = new ScoreListAdapter(dataList);
+                mRecyclerViewScoreList.setLayoutManager(layoutManager);
+                mRecyclerViewScoreList.setAdapter(adapter);
+            }
+        };
 
-        List<String> tasks = Arrays.asList("Login", "Database", "UI", "Account Management",
-                "Data Visualisation", "App Settings", "App themes", "Locales", "Other task",
-                "Another task");
-
-        adapter = new ScoreListAdapter(tasks);
-        mRecyclerViewScoreList.setLayoutManager(layoutManager);
-        mRecyclerViewScoreList.setAdapter(adapter);
+        database.getTasks(onGetDataListener);
 
         mButtonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
