@@ -62,8 +62,8 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
-                Database db = new Database();
-                db.getUserId(db.onGetDataListener);
+                //Database db = new Database();
+                //db.getResult(db.onGetDataListener);
                 login(email,password);
             }
         });

@@ -79,7 +79,7 @@ public class Database {
 
 
 
-    public List<String> getUserId(final OnGetDataListener onGetDataListener){
+    public List<String> getResult(final OnGetDataListener onGetDataListener){
         mDatabase = FirebaseDatabase.getInstance();
         myRef = mDatabase.getReference().child("Scores");
         myRef.addValueEventListener(new ValueEventListener() {
@@ -87,7 +87,6 @@ public class Database {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Double size = (double) dataSnapshot.getChildrenCount();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    //String userId = ds.getKey();
                     Log.d(TAG, size.toString());
 
                     for (DataSnapshot task : ds.getChildren()) {
@@ -101,7 +100,7 @@ public class Database {
                     }
                 }
 
-                Log.d(TAG, averageMap.toString());
+                onGetDataListener.onSuccess(averageMap);
             }
 
             @Override

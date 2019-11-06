@@ -7,14 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.ResultViewHolder>  {
     public static final String TAG = "PlanningPokerResAdap";
-    List<Pair<String, Double>> results;
+    List<Object> tasks;
+    List<Object> results;
 
     public class ResultViewHolder  extends RecyclerView.ViewHolder{
         public TextView textViewTask;
@@ -28,8 +31,9 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
         }
     }
 
-    public ResultListAdapter(List<Pair<String, Double>> results) {
-        this.results = results;
+    public ResultListAdapter(Map<String, Double> results) {
+        this.tasks = Arrays.asList(results.keySet().toArray());
+        this.results = Arrays.asList(results.values().toArray());
     }
 
     @NonNull
@@ -44,8 +48,8 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
     @Override
     public void onBindViewHolder(@NonNull ResultListAdapter.ResultViewHolder holder, int position) {
         Log.d(TAG, "Binding view holder");
-        holder.textViewTask.setText(results.get(position).first);
-        holder.textViewScore.setText(String.valueOf(results.get(position).second));
+        holder.textViewTask.setText(tasks.get(position).toString());
+        holder.textViewScore.setText(results.get(position).toString());
     }
 
     @Override
