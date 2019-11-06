@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,37 @@ public class Database {
     FirebaseDatabase mDatabase;
     public List<String> listTask = new ArrayList<String>();
     public List<String> nameList = new ArrayList<String>();
-    public Map<String, Integer> avarageList;
+    public Map<String, Double> averageMap = new HashMap<>();
+    public OnGetDataListener onGetDataListener;
+    /*public OnGetDataListener onGetDataListener = new OnGetDataListener() {
+        @Override
+        public void onSuccess(final List<String> dataList) {
+            for (String names : dataList){
+                myRef=mDatabase.getReference().child("Scores").child(names);
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()){
+                            Log.d(TAG, ds.getKey());
+                            String key = ds.getKey();
+                            Double value = Double.parseDouble(ds.getValue().toString());
+                            if (!averageMap.containsKey(key)){
+                                averageMap.put(key,value);
+                            }
+                            else {
+                                averageMap.put(key, averageMap.get(key)+value);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        }
+    };*/
 
     public void addTask(String task_name){
         Task task = new Task(task_name);
@@ -74,4 +105,54 @@ public class Database {
         Log.d(TAG,"Atad:" + listTask.toString());
         return listTask;
     }
+
+
+
+    public List<String> getUserId(final OnGetDataListener onGetDataListener){
+        mDatabase = FirebaseDatabase.getInstance();
+        myRef = mDatabase.getReference().child("Users");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    String userId = ds.getKey();
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference reference = database.getReference().child("Scores").child(userId);
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ds : dataSnapshot.getChildren()){
+                                Log.d(TAG, ds.getKey());
+                                String key = ds.getKey();
+                                Double value = Double.parseDouble(ds.getValue().toString());
+                                if (!averageMap.containsKey(key)){
+                                    averageMap.put(key,value);
+                                }
+                                else {
+                                    averageMap.put(key, averageMap.get(key)+value);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+                //onGetDataListener.onSuccess(averageMap);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return nameList;
+    }
+
+
+
 }

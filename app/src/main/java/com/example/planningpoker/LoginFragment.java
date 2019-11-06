@@ -26,6 +26,7 @@ public class LoginFragment extends Fragment {
 
     FirebaseAuth mFireBaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    //OnGetDataListener onGetDataListener;
 
     public LoginFragment(){
 
@@ -61,6 +62,8 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
+                Database db = new Database();
+                db.getUserId(db.onGetDataListener);
                 login(email,password);
             }
         });
