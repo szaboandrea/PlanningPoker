@@ -5,5 +5,7 @@ import java.util.Map;
 
 public interface OnGetDataListener {
     void onSuccess(List<String> dataList);
+    Map<String, Double> onSuccess2(List<String> dataList);
+
     void onSuccess(Map<String, Double> dataMap);
 }

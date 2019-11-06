@@ -25,8 +25,7 @@ public class Database {
     public List<String> listTask = new ArrayList<String>();
     public List<String> nameList = new ArrayList<String>();
     public Map<String, Double> averageMap = new HashMap<>();
-    public OnGetDataListener onGetDataListener;
-    /*public OnGetDataListener onGetDataListener = new OnGetDataListener() {
+    public OnGetDataListener onGetDataListener = new OnGetDataListener() {
         @Override
         public void onSuccess(final List<String> dataList) {
             for (String names : dataList){
@@ -44,6 +43,9 @@ public class Database {
                             else {
                                 averageMap.put(key, averageMap.get(key)+value);
                             }
+                            final DatabaseReference newRef = mDatabase.getReference();
+                            newRef.child("Count").setValue(dataList.size());
+                            newRef.child(key).setValue(averageMap.get(key));
                         }
                     }
 
@@ -53,8 +55,19 @@ public class Database {
                     }
                 });
             }
+
         }
-    };*/
+
+        @Override
+        public Map<String, Double> onSuccess2(List<String> dataList) {
+            return null;
+        }
+
+        @Override
+        public void onSuccess(Map<String, Double> dataMap) {
+
+        }
+    };
 
     public void addTask(String task_name){
         Task task = new Task(task_name);
@@ -115,34 +128,10 @@ public class Database {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    String userId = ds.getKey();
-
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference reference = database.getReference().child("Scores").child(userId);
-                    reference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot ds : dataSnapshot.getChildren()){
-                                Log.d(TAG, ds.getKey());
-                                String key = ds.getKey();
-                                Double value = Double.parseDouble(ds.getValue().toString());
-                                if (!averageMap.containsKey(key)){
-                                    averageMap.put(key,value);
-                                }
-                                else {
-                                    averageMap.put(key, averageMap.get(key)+value);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
+                    nameList.add(ds.getKey());
                 }
-                //onGetDataListener.onSuccess(averageMap);
+                Log.d(TAG, nameList.toString());
+                onGetDataListener.onSuccess(nameList);
             }
 
             @Override
@@ -152,7 +141,5 @@ public class Database {
         });
         return nameList;
     }
-
-
 
 }
