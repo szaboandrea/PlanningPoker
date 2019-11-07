@@ -85,6 +85,14 @@ public class ScoringFragment extends Fragment {
             }
         });
 
+        mTextViewAddTask.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ResultFragment(), null).commit();
+                return true;
+            }
+        });
+
         return view;
     }
 

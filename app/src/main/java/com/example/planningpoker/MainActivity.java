@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         fragmentManager = getSupportFragmentManager();
 
         if (findViewById(R.id.fragment_place)!=null){
@@ -31,10 +30,6 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             LoginFragment loginFragment = new LoginFragment();
             fragmentTransaction.add(R.id.fragment_place, loginFragment, null);
-
-            //Undo
-            //ScoringFragment scoringFragment = new ScoringFragment();
-            //fragmentTransaction.add(R.id.fragment_place, scoringFragment, null);
             fragmentTransaction.commit();
         }
     }
