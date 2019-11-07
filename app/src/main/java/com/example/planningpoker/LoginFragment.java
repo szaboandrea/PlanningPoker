@@ -1,10 +1,14 @@
 package com.example.planningpoker;
 
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +27,7 @@ public class LoginFragment extends Fragment {
     private EditText mEmail, mPassword;
     private Button btnLogin;
     private TextView mRegister;
+    private CheckBox mShowPassword;
 
     FirebaseAuth mFireBaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -41,29 +46,16 @@ public class LoginFragment extends Fragment {
         mFireBaseAuth = FirebaseAuth.getInstance();
         mEmail = view.findViewById(R.id.et_email_login);
         mPassword = view.findViewById(R.id.et_password_login);
+        mShowPassword = view.findViewById(R.id.cb_show_password);
         mRegister = view.findViewById(R.id.tv_register);
-
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mFireBaseAuth.getCurrentUser();
-                if (mFirebaseUser != null){
-                    Toast.makeText(getActivity(), "You are logged in", Toast.LENGTH_LONG).show();
-                    MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ScoringFragment(),null).commit();
-                }
-                else{
-                    Toast.makeText(getActivity(), "Please log in", Toast.LENGTH_LONG).show();
-                }
-            }
-        };
+        checkShowPassword();
+        authStateListener();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
-                //Database db = new Database();
-                //db.getResult(db.onGetDataListener);
                 login(email,password);
             }
         });
@@ -71,7 +63,8 @@ public class LoginFragment extends Fragment {
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new SignUpFragment(),null).commit();
+                MainActivity.fragmentManager.beginTransaction().replace(
+                        R.id.fragment_place, new SignUpFragment(),null).commit();
             }
         });
 
@@ -103,5 +96,37 @@ public class LoginFragment extends Fragment {
         }else{
             Toast.makeText(getActivity(), "Error occured", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void checkShowPassword(){
+        mPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        mShowPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    mPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+                else {
+                    mPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
+    }
+
+    public void authStateListener(){
+
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser mFirebaseUser = mFireBaseAuth.getCurrentUser();
+                if (mFirebaseUser != null){
+                    Toast.makeText(getActivity(), "You are logged in", Toast.LENGTH_LONG).show();
+                    MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ScoringFragment(),null).commit();
+                }
+                else{
+                    Toast.makeText(getActivity(), "Please log in", Toast.LENGTH_LONG).show();
+                }
+            }
+        };
     }
 }
