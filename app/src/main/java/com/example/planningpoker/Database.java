@@ -54,6 +54,22 @@ public class Database {
         });
     }
 
+
+    public void addTaskScoreToDatabase(String task_name, String score){
+        FirebaseDatabase.getInstance().getReference("Tasks")
+                .child(task_name)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .setValue(score)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
+                        if (!task.isSuccessful()){
+                            Log.d(TAG, "Doesn't add score");
+                        }
+                    }
+                });
+    }
+
     public List<String> getTasks(final OnGetDataListener onGetDataListener){
         mDatabase = FirebaseDatabase.getInstance();
         myRef = mDatabase.getReference();

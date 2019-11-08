@@ -89,7 +89,7 @@ public class LoginFragment extends Fragment {
                         Toast.makeText(getActivity(), "Please check your email or password", Toast.LENGTH_LONG).show();
                     }
                     else{
-                        MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ScoringFragment(),null).commit();
+                        MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new NewScoringFragment(),null).commit();
                     }
                 }
             });
