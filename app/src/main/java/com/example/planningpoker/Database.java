@@ -127,6 +127,36 @@ public class Database {
         return nameList;
     }
 
+    public void getAverage(final OnGetDataListener onGetDataListener){
+        mDatabase = FirebaseDatabase.getInstance();
+        myRef = mDatabase.getReference("Tasks");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Log.d(TAG, ds.toString());
+                    String key = ds.getKey();
+                    Double size = (double) dataSnapshot.child(key).getChildrenCount();
 
+                    for (DataSnapshot people : ds.getChildren()) {
+                        Double value = Double.parseDouble(people.getValue().toString());
+//                        Log.d(TAG, "ertek:" +  value.toString());
+                        if (!averageMap.containsKey(key)) {
+                            averageMap.put(key, value);
+                        } else {
+                            averageMap.put(key, averageMap.get(key) + value);
+                        }
+                    }
+                    averageMap.put(key, averageMap.get(key) / size);
+                }
+                onGetDataListener.onSuccess(averageMap);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 }

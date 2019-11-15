@@ -61,7 +61,7 @@ public class ResultFragment extends Fragment {
             }
         };
 
-        database.getResult(onGetDataListener);
+        database.getAverage(onGetDataListener);
 
         mButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override

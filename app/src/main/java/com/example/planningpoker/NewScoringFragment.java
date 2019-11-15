@@ -20,7 +20,7 @@ public class NewScoringFragment extends Fragment {
     private List<String> mNumbers = new ArrayList<>();
     private Integer count=0;
     private static final String TAG = "PlanningPokerNewScore";
-    private String mFirstElement;
+    private String mLastElement;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +37,7 @@ public class NewScoringFragment extends Fragment {
         onGetDataListener = new OnGetDataListener() {
             @Override
             public void onSuccess(final List<String> dataList) {
-                mFirstElement = dataList.get(0);
+                mLastElement = dataList.get(dataList.size()-1);
                 mTask.setText(dataList.get(count));
                 mNext.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -62,7 +62,7 @@ public class NewScoringFragment extends Fragment {
                 mValue.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mTask.getText() != mFirstElement || count == 0){
+                        if (mTask.getText() != mLastElement){
                             Database db = new Database();
                             db.addTaskScoreToDatabase(dataList.get(count),mValue.getText().toString());
                             mValue.setText("1");
@@ -77,7 +77,7 @@ public class NewScoringFragment extends Fragment {
                 mSkip.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mTask.getText() != mFirstElement || count == 0){
+                        if (mTask.getText() != mLastElement){
                             mValue.setText("1");
                             count = count + 1;
                             mTask.setText(dataList.get(count));
@@ -108,7 +108,6 @@ public class NewScoringFragment extends Fragment {
         mNumbers.add("13");
         mNumbers.add("21");
         mNumbers.add("34");
-
-
+        mNumbers.add("55");
     }
 }
