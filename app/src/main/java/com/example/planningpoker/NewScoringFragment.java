@@ -37,6 +37,7 @@ public class NewScoringFragment extends Fragment {
         onGetDataListener = new OnGetDataListener() {
             @Override
             public void onSuccess(final List<String> dataList) {
+
                 mLastElement = dataList.get(dataList.size()-1);
                 mTask.setText(dataList.get(count));
                 mNext.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +95,7 @@ public class NewScoringFragment extends Fragment {
             }
         };
 
-        database.getTasks(onGetDataListener);
+        database.getTaskFromTasks(onGetDataListener);
 
         return view;
     }

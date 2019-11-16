@@ -22,13 +22,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
+import java.util.Map;
+
 public class LoginFragment extends Fragment {
 
     private EditText mEmail, mPassword;
     private Button btnLogin;
     private TextView mRegister;
     private CheckBox mShowPassword;
-
+    private OnGetDataListener onGetDataListener;
+    Database db = new Database();
     FirebaseAuth mFireBaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     //OnGetDataListener onGetDataListener;
@@ -89,7 +93,23 @@ public class LoginFragment extends Fragment {
                         Toast.makeText(getActivity(), "Please check your email or password", Toast.LENGTH_LONG).show();
                     }
                     else{
-                        MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new NewScoringFragment(),null).commit();
+                        onGetDataListener = new OnGetDataListener() {
+                            @Override
+                            public void onSuccess(List<String> dataList) {
+                                if (dataList.isEmpty()){
+                                    MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ResultFragment(),null).commit();
+                                }
+                                else {
+                                    MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new NewScoringFragment(),null).commit();
+                                }
+                            }
+
+                            @Override
+                            public void onSuccess(Map<String, Double> dataMap) {
+
+                            }
+                        };
+                    db.getTaskFromTasks(onGetDataListener);
                     }
                 }
             });
