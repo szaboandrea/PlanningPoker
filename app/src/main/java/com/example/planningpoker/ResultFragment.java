@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,7 +55,7 @@ public class ResultFragment extends Fragment {
 
             @Override
             public void onSuccess(Map<String, Double> dataMap) {
-                layoutManager = new LinearLayoutManager(getContext());
+                layoutManager = new GridLayoutManager(getContext(), 3);
                 adapter = new ResultListAdapter(dataMap);
                 mRecyclerViewResultList.setLayoutManager(layoutManager);
                 mRecyclerViewResultList.setAdapter(adapter);
