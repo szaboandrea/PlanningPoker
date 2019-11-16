@@ -23,6 +23,7 @@ public class Database {
     DatabaseReference myRef;
     FirebaseDatabase mDatabase;
     public List<String> listTask = new ArrayList<String>();
+    public List<String> listNewTask = new ArrayList<>();
     public List<String> nameList = new ArrayList<String>();
     public Map<String, Double> averageMap = new HashMap<>();
     public OnGetDataListener onGetDataListener;
@@ -93,6 +94,36 @@ public class Database {
         return listTask;
     }
 
+    public void getTaskFromTasks(final OnGetDataListener onGetDataListener){
+        mDatabase = FirebaseDatabase.getInstance();
+        myRef = mDatabase.getReference();
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                dataSnapshot = dataSnapshot.child("Tasks");
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    int value = 0;
+                    for (DataSnapshot users : ds.getChildren()){
+                        Log.d(TAG, "users" + users.getKey() + "  + user" + user );
+                        if (users.getKey().matches(user)){
+                            value=1;
+                        }
+                    }
+                    if (value == 0){
+                        listNewTask.add(ds.getKey());
+                    }
+                }
+                onGetDataListener.onSuccess(listNewTask);
+                Log.d(TAG, listNewTask.toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
     public List<String> getResult(final OnGetDataListener onGetDataListener){
@@ -159,4 +190,8 @@ public class Database {
         });
     }
 
+    public void checkIfExist(){
+        String user = FirebaseAuth.getInstance().getCurrentUser().toString();
+
+    }
 }
