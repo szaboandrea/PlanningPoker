@@ -1,7 +1,6 @@
 package com.example.planningpoker;
 
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.ResultViewHolder>  {
@@ -20,14 +20,12 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
     List<Object> results;
 
     public class ResultViewHolder  extends RecyclerView.ViewHolder{
-        public TextView textViewTask;
-        public TextView textViewScore;
+        public CardView cardView;
 
 
         public ResultViewHolder(@NonNull View view) {
             super(view);
-            this.textViewTask = view.findViewById(R.id.resultTextViewTask);
-            this.textViewScore = view.findViewById(R.id.resultTextViewScore);
+            this.cardView = view.findViewById(R.id.cardView);
         }
     }
 
@@ -48,8 +46,11 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
     @Override
     public void onBindViewHolder(@NonNull ResultListAdapter.ResultViewHolder holder, int position) {
         Log.d(TAG, "Binding view holder");
-        holder.textViewTask.setText(tasks.get(position).toString());
-        holder.textViewScore.setText(results.get(position).toString());
+
+        ((TextView) holder.cardView.findViewById(R.id.textViewTaskResult)).
+                setText(tasks.get(position).toString());
+        ((TextView) holder.cardView.findViewById(R.id.textViewResult)).
+                setText(results.get(position).toString());
     }
 
     @Override
