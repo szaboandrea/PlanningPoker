@@ -97,7 +97,7 @@ public class SignUpFragment extends Fragment {
                                 }
                                 else{
                                     Toast.makeText(getActivity(), "Login in success", Toast.LENGTH_LONG).show();
-                                    MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ScoringFragment(),null).commit();
+                                    MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new NewScoringFragment(),null).commit();
                                 }
                             }
                         });
