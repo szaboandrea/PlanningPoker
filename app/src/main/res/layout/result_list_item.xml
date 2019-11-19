@@ -7,14 +7,16 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_margin="10dp"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/rounded"
+        android:minHeight="150dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
@@ -24,7 +26,8 @@
                 android:padding="10dp"
                 android:textColor="@color/colorGreen"
                 android:textStyle="bold|italic"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:layout_gravity="top|center"/>
 
             <TextView
                 android:id="@+id/textViewResult"
@@ -33,7 +36,8 @@
                 android:padding="10dp"
                 android:textColor="@color/colorGreen"
                 android:textSize="22sp"
-                android:textAlignment="center" />
-        </LinearLayout>
+                android:textAlignment="center"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>
