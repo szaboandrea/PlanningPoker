@@ -26,12 +26,12 @@
 
     <Button
         android:id="@+id/buttonBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="#0F7569"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:textColor="#FFFFFF"
-        android:text="@string/back"/>
+        android:layout_margin="10dp"
+        android:background="@drawable/roundedbutton"
+        android:text="@string/addnewtask"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>

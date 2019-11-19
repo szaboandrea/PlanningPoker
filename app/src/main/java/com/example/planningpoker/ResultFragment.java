@@ -10,7 +10,6 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class ResultFragment extends Fragment {
     private OnResultFragmentInteractionListener mListener;
 
     private RecyclerView mRecyclerViewResultList;
-    private Button mButtonBack;
+    private Button mButtonAddNewTask;
 
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -45,7 +44,7 @@ public class ResultFragment extends Fragment {
         }
 
         mRecyclerViewResultList = view.findViewById(R.id.recyclerViewResultList);
-        mButtonBack = view.findViewById(R.id.buttonBack);
+        mButtonAddNewTask = view.findViewById(R.id.buttonBack);
 
         database = new Database();
         onGetDataListener = new OnGetDataListener() {
@@ -64,11 +63,11 @@ public class ResultFragment extends Fragment {
 
         database.getAverage(onGetDataListener);
 
-        mButtonBack.setOnClickListener(new View.OnClickListener() {
+        mButtonAddNewTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Back button click");
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ScoringFragment(),null).commit();
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new AddNewTasksFragment(),null).commit();
             }
         });
 
